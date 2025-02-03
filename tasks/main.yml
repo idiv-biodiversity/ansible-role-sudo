@@ -1,0 +1,29 @@
+---
+
+- name: install sudo
+  ansible.builtin.package:
+    name: sudo
+
+- name: deploy sudoers.d files
+  ansible.builtin.template:
+    src: sudoers.d.j2
+    dest: '/etc/sudoers.d/{{ sudoer.name }}'
+    owner: root
+    group: root
+    mode: '0440'
+    validate: visudo -cf %s
+  loop: '{{ sudo_sudoers }}'
+  loop_control:
+    loop_var: sudoer
+    label: '{{ sudoer.name }}'
+
+- name: deploy distro default /etc/sudoers
+  ansible.builtin.template:
+    src: '{{ lookup("first_found", __sudo_etc_sudoers_templates) }}'
+    dest: /etc/sudoers
+    owner: root
+    group: root
+    mode: '0440'
+    validate: visudo -cf %s
+
+...

@@ -1,0 +1,23 @@
+---
+
+galaxy_info:
+  role_name: sudo
+  namespace: idiv_biodiversity
+
+  author: Christian Krause
+  description: configure sudo
+  company: German Centre for Integrative Biodiversity Research (iDiv)
+  license: MIT
+  min_ansible_version: '2.9'
+
+  platforms:
+
+    - name: ArchLinux
+      versions:
+        - all
+
+  galaxy_tags:
+    - sudo
+    - sudoers
+
+...

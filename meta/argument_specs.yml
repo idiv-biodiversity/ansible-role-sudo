@@ -1,0 +1,15 @@
+---
+
+argument_specs:
+  main:
+    options:
+
+      sudo_sudoers:
+        type: list
+        elements: dict
+        options:
+          name:
+            type: str
+            required: yes
+
+...

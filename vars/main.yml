@@ -1,0 +1,41 @@
+---
+
+# -----------------------------------------------------------------------------
+# distro / os handles
+# -----------------------------------------------------------------------------
+
+__sudo_distro: >-
+  {{ ansible_distribution | lower }}
+
+__sudo_os: >-
+  {{ ansible_os_family | lower }}
+
+__sudo_distro_version: >-
+  {{ __sudo_distro }}_{{ ansible_distribution_major_version }}
+
+__sudo_os_version: >-
+  {{ __sudo_os }}_{{ ansible_distribution_major_version }}
+
+# -----------------------------------------------------------------------------
+# first found snippets
+# -----------------------------------------------------------------------------
+
+__sudo_first_found:
+  - '{{ __sudo_distro_version }}'
+  - '{{ __sudo_os_version }}'
+  - '{{ __sudo_distro }}'
+  - '{{ __sudo_os }}'
+  - default
+
+__sudo_etc_sudoers_templates:
+  files: >-
+    {{
+      __sudo_first_found |
+        map('regex_replace', '^', 'sudoers_') |
+        map('regex_replace', '$', '.j2') |
+        list
+    }}
+  paths:
+    - templates
+
+...
