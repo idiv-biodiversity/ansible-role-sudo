@@ -13,7 +13,13 @@ argument_specs:
         elements: dict
         options:
           name:
-            type: str
             required: yes
+            type: str
+          host:
+            type: str
+          runas:
+            type: str
+          command:
+            type: str
 
 ...
