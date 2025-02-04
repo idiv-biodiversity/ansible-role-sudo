@@ -2,4 +2,6 @@
 
 sudo_sudoers: []
 
+sudo_disable_wheel: no
+
 ...

@@ -30,6 +30,9 @@ Role Variables
 sudo_sudoers:
   - name: alice
   - name: bob
+
+# disable wheel in /etc/sudoers if distro does so by default
+sudo_disable_wheel: no
 ```
 
 Dependencies

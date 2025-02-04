@@ -104,7 +104,11 @@ root	ALL=(ALL) 	ALL
 # %sys ALL = NETWORKING, SOFTWARE, SERVICES, STORAGE, DELEGATING, PROCESSES, LOCATE, DRIVERS
 
 ## Allows people in group wheel to run all commands
+{% if sudo_disable_wheel %}
+#%wheel ALL=(ALL) ALL
+{% else %}
 %wheel	ALL=(ALL)	ALL
+{% endif %}
 
 ## Same thing without a password
 # %wheel	ALL=(ALL)	NOPASSWD: ALL

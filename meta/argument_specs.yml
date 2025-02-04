@@ -4,6 +4,10 @@ argument_specs:
   main:
     options:
 
+      sudo_disable_wheel:
+        required: yes
+        type: bool
+
       sudo_sudoers:
         type: list
         elements: dict
