@@ -1,3 +1,10 @@
 # {{ ansible_managed }}
 
+{% if sudoer.secure_path is defined %}
+Defaults:{{ sudoer.name }} secure_path = {{ sudoer.secure_path | join(':') }}
+{% endif %}
+{% if sudoer.timestamp_timeout is defined %}
+Defaults:{{ sudoer.name }} timestamp_timeout = {{ sudoer.timestamp_timeout }}
+{% endif %}
+
 {{ sudoer.name }} {{ sudoer.host | default('ALL') }}=({{ sudoer.runas | default('ALL') }}) {{ sudoer.command | default('ALL') }}

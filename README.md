@@ -29,7 +29,14 @@ Role Variables
 ```yml
 sudo_sudoers:
   - name: alice
+    host: node001
+    runas: bob
+    command: /usr/bin/ls
   - name: bob
+    secure_path:
+      - /usr/bin
+      - /usr/sbin
+    timestamp_timeout: 120
 
 # disable wheel in /etc/sudoers if distro does so by default
 sudo_disable_wheel: no

@@ -21,5 +21,10 @@ argument_specs:
             type: str
           command:
             type: str
+          secure_path:
+            type: list
+            elements: str
+          timestamp_timeout:
+            type: int
 
 ...
