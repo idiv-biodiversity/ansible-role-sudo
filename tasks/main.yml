@@ -7,7 +7,7 @@
 - name: deploy sudoers.d files
   ansible.builtin.template:
     src: sudoers.d.j2
-    dest: '/etc/sudoers.d/{{ sudoer.name }}'
+    dest: '/etc/sudoers.d/{{ sudoer.file | default(sudoer.name) }}'
     owner: root
     group: root
     mode: '0440'

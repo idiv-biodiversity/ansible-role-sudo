@@ -1,10 +1,18 @@
 # {{ ansible_managed }}
 
-{% if sudoer.secure_path is defined %}
-Defaults:{{ sudoer.name }} secure_path = {{ sudoer.secure_path | join(':') }}
+{% if sudoer.defaults is defined %}
+{% if sudoer.defaults.secure_path is defined %}
+Defaults:{{ sudoer.name }} secure_path = {{ sudoer.defaults.secure_path | join(':') }}
 {% endif %}
-{% if sudoer.timestamp_timeout is defined %}
-Defaults:{{ sudoer.name }} timestamp_timeout = {{ sudoer.timestamp_timeout }}
+{% if sudoer.defaults.timestamp_timeout is defined %}
+Defaults:{{ sudoer.name }} timestamp_timeout = {{ sudoer.defaults.timestamp_timeout }}
 {% endif %}
 
-{{ sudoer.name }} {{ sudoer.host | default('ALL') }}=({{ sudoer.runas | default('ALL') }}) {{ sudoer.command | default('ALL') }}
+{% endif %}
+{% if sudoer.entries is defined %}
+{% for entry in sudoer.entries %}
+{{ entry.name | default(sudoer.name) }} {{ entry.host | default('ALL') }}=({{ entry.runas | default('ALL') }}) {{ entry.nopasswd | ternary('NOPASSWD: ', '') }}{{ entry.command | default('ALL') }}
+{% endfor %}
+{% else %}
+{{ sudoer.name }} ALL=(ALL) ALL
+{% endif %}

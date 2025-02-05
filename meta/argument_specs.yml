@@ -15,16 +15,29 @@ argument_specs:
           name:
             required: yes
             type: str
-          host:
+          file:
             type: str
-          runas:
-            type: str
-          command:
-            type: str
-          secure_path:
+          defaults:
+            type: dict
+            options:
+              secure_path:
+                type: list
+                elements: str
+              timestamp_timeout:
+                type: int
+          entries:
             type: list
-            elements: str
-          timestamp_timeout:
-            type: int
+            elements: dict
+            options:
+              name:
+                type: str
+              host:
+                type: str
+              runas:
+                type: str
+              nopasswd:
+                type: bool
+              command:
+                type: str
 
 ...
