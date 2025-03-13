@@ -1,0 +1,41 @@
+---
+
+- name: verify
+  hosts: all
+
+  vars:
+    ansible_user: testuser
+    ansible_become_method: sudo
+
+  tasks:
+
+    - name: run whoami without become
+      ansible.builtin.command: whoami
+      changed_when: no
+      register: __whoami_without_become
+
+    - name: show whoami without become
+      ansible.builtin.debug:
+        var: __whoami_without_become
+
+    - name: assert whoami without become is test user
+      ansible.builtin.assert:
+        that:
+          - __whoami_without_become.stdout == "testuser"
+
+    - name: run whoami with sudo become
+      ansible.builtin.command: whoami
+      become: yes
+      changed_when: no
+      register: __whoami_with_become
+
+    - name: show whoami with sudo become
+      ansible.builtin.debug:
+        var: __whoami_with_become
+
+    - name: assert whoami with become is root
+      ansible.builtin.assert:
+        that:
+          - __whoami_with_become.stdout == "root"
+
+...

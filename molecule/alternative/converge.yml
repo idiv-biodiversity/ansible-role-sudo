@@ -1,0 +1,21 @@
+---
+
+- name: converge
+  hosts: all
+
+  pre_tasks:
+
+    - name: update package cache
+      ansible.builtin.import_tasks: ../tasks/package-cache.yml
+
+    - name: create test user
+      ansible.builtin.user:
+        name: testuser
+
+  tasks:
+
+    - name: include the role
+      ansible.builtin.include_role:
+        name: idiv_biodiversity.sudo
+
+...

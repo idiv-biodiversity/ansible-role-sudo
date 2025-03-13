@@ -1,0 +1,25 @@
+---
+
+- name: verify
+  hosts: all
+
+  tasks:
+
+    - name: run whoami
+      ansible.builtin.command: whoami
+      changed_when: no
+      register: __whoami
+      become: yes
+      vars:
+        ansible_become_method: sudo
+
+    - name: show whoami
+      ansible.builtin.debug:
+        var: __whoami
+
+    - name: assert whoami is root
+      ansible.builtin.assert:
+        that:
+          - __whoami.stdout == "root"
+
+...

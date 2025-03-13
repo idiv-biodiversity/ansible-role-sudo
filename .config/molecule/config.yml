@@ -1,0 +1,29 @@
+---
+
+dependency:
+  name: galaxy
+
+driver:
+  name: docker
+
+platforms:
+
+  - name: archlinux
+    image: ghcr.io/idiv-biodiversity/ansible-molecule-archlinux:latest
+    pre_build_image: yes
+
+  - name: rockylinux-9
+    image: ghcr.io/idiv-biodiversity/ansible-molecule-rockylinux-9:latest
+    pre_build_image: yes
+
+provisioner:
+  name: ansible
+  inventory:
+    group_vars:
+      all:
+        ansible_become_method: su
+
+verifier:
+  name: ansible
+
+...
