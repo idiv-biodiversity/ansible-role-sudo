@@ -16,6 +16,8 @@
   loop_control:
     loop_var: sudoer
     label: '{{ sudoer.name }}'
+  tags:
+    - sudo-sudoers
 
 - name: deploy distro default /etc/sudoers
   ansible.builtin.template:
@@ -25,5 +27,7 @@
     group: root
     mode: '0440'
     validate: visudo -cf %s
+  tags:
+    - sudo-sudoers
 
 ...
